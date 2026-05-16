@@ -1,0 +1,52 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Dobrodošli u ITFlow</h1>
+<p>Nadzorna ploča za administraciju sustava</p>
+
+<div class="stats">
+    <div class="stat-card">
+        <p>Otvoreni zahtjevi</p>
+        <h2>12</h2>
+    </div>
+
+    <div class="stat-card">
+        <p>Aktivni incidenti</p>
+        <h2>3</h2>
+    </div>
+
+    <div class="stat-card">
+        <p>Riješeno ovaj tjedan</p>
+        <h2>28</h2>
+    </div>
+
+    <div class="stat-card">
+        <p>Moje prijave</p>
+        <h2>5</h2>
+    </div>
+</div>
+
+<h2>Brzi pristup</h2>
+
+<div class="quick-grid">
+    <a class="quick-card" href="/oprema/">
+        <h3>IT oprema</h3>
+        <p>Upravljanje IT opremom</p>
+    </a>
+
+    <a class="quick-card" href="/baza-znanja/">
+        <h3>Baza znanja</h3>
+        <p>Pretraga poznatih rješenja</p>
+    </a>
+
+    <a class="quick-card" href="/izvjestaji/">
+        <h3>Izvještaji</h3>
+        <p>KPI pokazatelji i izvještaji</p>
+    </a>
+
+    <a class="quick-card" href="/admin/">
+        <h3>Admin panel</h3>
+        <p>Upravljanje podacima sustava</p>
+    </a>
+</div>
+{% endblock %}

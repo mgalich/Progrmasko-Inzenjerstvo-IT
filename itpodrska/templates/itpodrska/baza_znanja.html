@@ -1,0 +1,29 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Baza znanja</h1>
+
+<div class="card">
+    <h2>Pregled članaka</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Naslov</th>
+            <th>Problem</th>
+            <th>Rješenje</th>
+            <th>Ključne riječi</th>
+        </tr>
+
+        {% for clanak in clanci %}
+        <tr>
+            <td>{{ clanak.id_clanka }}</td>
+            <td>{{ clanak.naslov_clanka }}</td>
+            <td>{{ clanak.opis_problema }}</td>
+            <td>{{ clanak.opis_rjesenja }}</td>
+            <td>{{ clanak.kljucne_rijeci }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

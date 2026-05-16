@@ -1,0 +1,31 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>IT oprema</h1>
+
+<div class="card">
+    <h2>Pregled IT opreme</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Inventarni broj</th>
+            <th>Naziv</th>
+            <th>Vrsta</th>
+            <th>Proizvođač</th>
+            <th>Lokacija</th>
+        </tr>
+
+        {% for oprema in oprema %}
+        <tr>
+            <td>{{ oprema.id_opreme }}</td>
+            <td>{{ oprema.inventarni_broj }}</td>
+            <td>{{ oprema.naziv_opreme }}</td>
+            <td>{{ oprema.vrsta_opreme }}</td>
+            <td>{{ oprema.proizvodjac }}</td>
+            <td>{{ oprema.lokacija }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

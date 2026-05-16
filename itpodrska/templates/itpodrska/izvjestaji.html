@@ -1,0 +1,33 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Izvještaji</h1>
+
+<div class="card">
+    <h2>Pregled KPI izvještaja</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Naziv izvještaja</th>
+            <th>Datum izrade</th>
+            <th>Razdoblje</th>
+            <th>Broj zahtjeva</th>
+            <th>Broj incidenata</th>
+            <th>Riješene prijave</th>
+        </tr>
+
+        {% for izvjestaj in izvjestaji %}
+        <tr>
+            <td>{{ izvjestaj.id_izvjestaja }}</td>
+            <td>{{ izvjestaj.naziv_izvjestaja }}</td>
+            <td>{{ izvjestaj.datum_izrade }}</td>
+            <td>{{ izvjestaj.razdoblje_od }} - {{ izvjestaj.razdoblje_do }}</td>
+            <td>{{ izvjestaj.broj_zahtjeva }}</td>
+            <td>{{ izvjestaj.broj_incidenata }}</td>
+            <td>{{ izvjestaj.broj_rijesenih_prijava }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

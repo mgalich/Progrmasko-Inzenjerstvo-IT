@@ -1,0 +1,29 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Incidenti</h1>
+
+<div class="card">
+    <h2>Pregled incidenata</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Naziv</th>
+            <th>Opis</th>
+            <th>Lokacija</th>
+            <th>Datum prijave</th>
+        </tr>
+
+        {% for incident in incidenti %}
+        <tr>
+            <td>{{ incident.id_incidenta }}</td>
+            <td>{{ incident.naziv_incidenta }}</td>
+            <td>{{ incident.opis_incidenta }}</td>
+            <td>{{ incident.lokacija }}</td>
+            <td>{{ incident.datum_prijave }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

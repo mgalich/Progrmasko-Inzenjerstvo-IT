@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <title>Aplikacija za IT podršku</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            background: #0f2742;
+            color: white;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 25px 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 35px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin: 16px 0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .sidebar a:hover {
+            background: #1e4268;
+        }
+
+        .content {
+            margin-left: 280px;
+            padding: 35px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #0f2742;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #1e4268;
+        }
+
+        table {
+            width: 100%;
+             border-collapse: collapse;
+             margin-top: 15px;
+             background: white;
+            }
+            th {
+                background: #0f2742;
+                color: white;
+                text-align: left;
+                padding: 12px;
+            }
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #e5e7eb;
+            }
+            tr:hover {
+                background: #f1f5f9;
+            }
+
+            .stats {
+                display: flex;
+                gap: 22px;
+                margin: 30px 0;
+                flex-wrap: wrap;
+            }
+            .stat-card {
+                background: white;
+                width: 180px;
+                padding: 22px;
+                border-radius: 14px;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            }
+            .stat-card p {
+                margin: 0;
+                color: #64748b;
+            }
+            .stat-card h2 {
+                font-size: 42px;
+                margin: 10px 0 0;
+                color: #0f2742;
+            }
+            .quick-grid { 
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 22px;
+                margin-top: 20px;
+            }
+            .quick-card {
+                background: white;
+                padding: 28px;
+                border-radius: 14px;
+                text-decoration: none;
+                color: #1f2937;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+            }
+            .quick-card:hover {
+                transform: translateY(-3px);
+            }
+            .quick-card h3 {
+                margin-top: 0;
+                color: #0f2742;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>ITFlow</h2>
+        <a href="/">Dashboard</a>
+        <a href="/zahtjevi/">Zahtjevi</a>
+        <a href="/incidenti/">Incidenti</a>
+        <a href="/oprema/">IT oprema</a>
+        <a href="/baza-znanja/">Baza znanja</a>
+        <a href="/izvjestaji/">Izvještaji</a>
+        <a href="/admin/">Admin panel</a>
+    </div>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

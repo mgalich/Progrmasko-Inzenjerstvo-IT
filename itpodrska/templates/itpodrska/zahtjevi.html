@@ -1,0 +1,27 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Zahtjevi</h1>
+
+<div class="card">
+    <h2>Pregled korisničkih zahtjeva</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Naslov</th>
+            <th>Opis</th>
+            <th>Datum prijave</th>
+        </tr>
+
+        {% for zahtjev in zahtjevi %}
+        <tr>
+            <td>{{ zahtjev.id_zahtjeva }}</td>
+            <td>{{ zahtjev.naslov_zahtjeva }}</td>
+            <td>{{ zahtjev.opis_zahtjeva }}</td>
+            <td>{{ zahtjev.datum_prijave }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

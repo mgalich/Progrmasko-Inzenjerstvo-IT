@@ -13,6 +13,8 @@ urlpatterns = [
     path('novi-incident/', views.novi_incident, name='novi_incident'),
     path('nova-oprema/', views.nova_oprema, name='nova_oprema'),
     path('novi-clanak/', views.novi_clanak, name='novi_clanak' ),
+    path('dodijeli-zahtjeve/', views.dodijeli_zahtjeve, name='dodijeli_zahtjeve'),
     path('login/', auth_views.LoginView.as_view(template_name='itpodrska/login.html'), name='login'),
     path('logout/', views.odjava, name='logout'),
+    
 ]

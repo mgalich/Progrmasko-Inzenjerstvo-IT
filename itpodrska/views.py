@@ -21,7 +21,7 @@ def pocetna(request):
 
     return render(request, 'itpodrska/dashboard.html')
 
-from .models import Zahtjev, Incident, ItOprema, ClanakBazeZnanja, Izvjestaj
+from .models import Zahtjev, Incident, ItOprema, ClanakBazeZnanja, Izvjestaj, ItZaposlenik
 
 @login_required
 def zahtjevi(request):
@@ -118,3 +118,15 @@ def novi_clanak(request):
 def odjava(request):
     logout(request)
     return redirect('/login/')
+
+@login_required
+def dodijeli_zahtjeve(request):
+    it_djelatnici = ItZaposlenik.objects.all()
+    zahtjevi = Zahtjev.objects.all()
+    incidenti = Incident.objects.all()
+
+    return render(request, 'itpodrska/dodijeli_zahtjeve.html', {
+        'it_djelatnici': it_djelatnici,
+        'zahtjevi': zahtjevi,
+        'incidenti': incidenti
+    })

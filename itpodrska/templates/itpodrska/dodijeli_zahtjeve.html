@@ -1,0 +1,56 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+
+<h1>Dodjela zahtjeva i incidenata</h1>
+<p>Nedodijeljene prijave koje čekaju dodjelu IT djelatniku.</p>
+
+<div class="card">
+    <table>
+    <tr>
+        <th>Broj prijave</th>
+        <th>Vrsta</th>
+        <th>Naziv</th>
+        <th>Prioritet</th>
+        <th>Akcija</th>
+    </tr>
+
+    {% for zahtjev in zahtjevi %}
+    <tr>
+        <td>REQ-{{ zahtjev.id_zahtjeva }}</td>
+        <td>Zahtjev</td>
+        <td>{{ zahtjev.naslov_zahtjeva }}</td>
+        <td>-</td>
+        <td>
+            <select>
+                <option>Odaberi IT djelatnika</option>
+                {% for djelatnik in it_djelatnici %}
+                    <option>{{ djelatnik.ime }} {{ djelatnik.prezime }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn" type="button">Dodijeli</button>
+        </td>
+    </tr>
+    {% endfor %}
+
+    {% for incident in incidenti %}
+    <tr>
+        <td>INC-{{ incident.id_incidenta }}</td>
+        <td>Incident</td>
+        <td>{{ incident.naziv_incidenta }}</td>
+        <td>-</td>
+        <td>
+            <select>
+                <option>Odaberi IT djelatnika</option>
+                {% for djelatnik in it_djelatnici %}
+                    <option>{{ djelatnik.ime }} {{ djelatnik.prezime }}</option>
+                {% endfor %}
+            </select>
+            <button class="btn" type="button">Dodijeli</button>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% endblock %}

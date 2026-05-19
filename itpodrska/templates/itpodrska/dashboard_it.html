@@ -1,0 +1,28 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Dashboard IT djelatnika</h1>
+<p>Pregled zahtjeva, incidenata i baze znanja za rad IT podrške.</p>
+
+<div class="quick-grid">
+    <a class="quick-card" href="/zahtjevi/">
+        <h3>Zahtjevi</h3>
+        <p>Pregled i obrada korisničkih zahtjeva.</p>
+    </a>
+
+    <a class="quick-card" href="/incidenti/">
+        <h3>Incidenti</h3>
+        <p>Pregled i obrada prijavljenih incidenata.</p>
+    </a>
+
+    <a class="quick-card" href="/baza-znanja/">
+        <h3>Baza znanja</h3>
+        <p>Pregled rješenja i poznatih problema.</p>
+    </a>
+
+    <a class="quick-card" href="/novi-clanak/">
+        <h3>Novi članak</h3>
+        <p>Dodavanje novog rješenja u bazu znanja.</p>
+    </a>
+</div>
+{% endblock %}

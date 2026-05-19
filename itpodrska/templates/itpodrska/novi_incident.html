@@ -1,0 +1,27 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Novi incident</h1>
+
+<div class="card">
+    <h2>Unos novog incidenta</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Naziv incidenta</label>
+        <input type="text" name="naziv_incidenta" required>
+
+        <label>Opis incidenta</label>
+        <textarea name="opis_incidenta" required></textarea>
+
+        <label>Datum prijave</label>
+        <input type="date" name="datum_prijave" required>
+
+        <label>Lokacija</label>
+        <input type="text" name="lokacija">
+
+        <button class="btn" type="submit">Spremi incident</button>
+    </form>
+</div>
+{% endblock %}

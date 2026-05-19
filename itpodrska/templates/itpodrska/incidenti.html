@@ -5,25 +5,43 @@
 
 <div class="card">
     <h2>Pregled incidenata</h2>
+    <a class="btn" href="/novi-incident/">+ Novi incident</a>
+<br><br>
 
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Naziv</th>
-            <th>Opis</th>
-            <th>Lokacija</th>
-            <th>Datum prijave</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th>Lokacija</th>
+        <th>Datum prijave</th>
+        <th>Status</th>
+        <th>Prioritet</th>
+        <th>IT djelatnik</th>
+    </tr>
 
-        {% for incident in incidenti %}
-        <tr>
-            <td>{{ incident.id_incidenta }}</td>
-            <td>{{ incident.naziv_incidenta }}</td>
-            <td>{{ incident.opis_incidenta }}</td>
-            <td>{{ incident.lokacija }}</td>
-            <td>{{ incident.datum_prijave }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    {% for incident in incidenti %}
+    <tr>
+        <td>{{ incident.id_incidenta }}</td>
+        <td>{{ incident.naziv_incidenta }}</td>
+        <td>{{ incident.opis_incidenta }}</td>
+        <td>{{ incident.lokacija }}</td>
+        <td>{{ incident.datum_prijave }}</td>
+        <td>{{ incident.id_status_incidenta.naziv_statusa_incidenta }}</td>
+        <td>{{ incident.id_prioritet_incidenta.naziv_prioriteta }}</td>
+        <td>
+            {% if incident.id_it_zaposlenika %}
+                {{ incident.id_it_zaposlenika.ime }} {{ incident.id_it_zaposlenika.prezime }}
+            {% else %}
+                Nije dodijeljen
+            {% endif %}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="8">Nema unesenih incidenata.</td>
+    </tr>
+    {% endfor %}
+</table>
 </div>
 {% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Novi zahtjev</h1>
+
+<div class="card">
+    <h2>Unos korisničkog zahtjeva</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Naslov zahtjeva</label>
+        <input type="text" name="naslov_zahtjeva" required>
+
+        <label>Opis zahtjeva</label>
+        <textarea name="opis_zahtjeva" required></textarea>
+
+        <label>Datum prijave</label>
+        <input type="date" name="datum_prijave" required>
+
+        <br><br>
+        <button class="btn" type="submit">Spremi zahtjev</button>
+    </form>
+</div>
+{% endblock %}

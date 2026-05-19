@@ -1,0 +1,42 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Nova IT oprema</h1>
+
+<div class="card">
+    <h2>Unos nove opreme</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Inventarni broj</label>
+        <input type="text" name="inventarni_broj" required>
+
+        <label>Naziv opreme</label>
+        <input type="text" name="naziv_opreme" required>
+
+        <label>Vrsta opreme</label>
+        <input type="text" name="vrsta_opreme">
+
+        <label>Proizvođač</label>
+        <input type="text" name="proizvodjac">
+
+        <label>Model</label>
+        <input type="text" name="model">
+
+        <label>Serijski broj</label>
+        <input type="text" name="serijski_broj">
+
+        <label>Lokacija</label>
+        <input type="text" name="lokacija">
+
+        <label>Datum kupnje</label>
+        <input type="date" name="datum_kupnje">
+
+        <label>Jamstvo u mjesecima</label>
+        <input type="number" name="jamstvo_mjeseci">
+
+        <button class="btn" type="submit">Spremi opremu</button>
+    </form>
+</div>
+{% endblock %}

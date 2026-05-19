@@ -12,7 +12,7 @@
         }
 
         .sidebar {
-            width: 240px;
+            width: 150px;
             height: 100vh;
             background: #0f2742;
             color: white;
@@ -41,7 +41,7 @@
         }
 
         .content {
-            margin-left: 280px;
+            margin-left: 200px;
             padding: 35px;
         }
 
@@ -129,25 +129,68 @@
                 margin-top: 0;
                 color: #0f2742;
             }
+
+            input, textarea {
+                width: 100%;
+                padding: 12px;
+                margin-top: 8px;
+                margin-bottom: 18px;
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                font-size: 14px;
+                box-sizing: border-box;
+            }
+            label{
+                font-weight: bold;
+            }
     </style>
 </head>
 <body>
 
     <div class="sidebar">
-        <h2>ITFlow</h2>
-        <a href="/">Dashboard</a>
+    <h2>ITFlow</h2>
+
+    <a href="/">Dashboard</a>
+
+    {% for group in user.groups.all %}
+
+    {% if group.name == "Zaposlenik" %}
+        <a href="/novi-zahtjev/">Prijavi zahtjev</a>
+        <a href="/novi-incident/">Prijavi incident</a>
+        <a href="/zahtjevi/">Moji zahtjevi</a>
+        <a href="/incidenti/">Moji incidenti</a>
+        <a href="/baza-znanja/">Baza znanja</a>
+    {% endif %}
+
+    {% if group.name == "IT djelatnik" %}
         <a href="/zahtjevi/">Zahtjevi</a>
         <a href="/incidenti/">Incidenti</a>
-        <a href="/oprema/">IT oprema</a>
         <a href="/baza-znanja/">Baza znanja</a>
-        <a href="/izvjestaji/">Izvještaji</a>
-        <a href="/admin/">Admin panel</a>
-    </div>
+        <a href="/novi-clanak/">Novi članak</a>
+    {% endif %}
 
-    <div class="content">
-        {% block content %}
-        {% endblock %}
-    </div>
+    {% if group.name == "Administrator" %}
+    <a href="/oprema/">IT oprema</a>
+    <a href="/nova-oprema/">Nova oprema</a>
+    <a href="/admin/">Admin panel</a>
+    
+{% endif %}
+
+    {% if group.name == "Voditelj IT odjela" %}
+        <a href="/izvjestaji/">Izvještaji</a>
+        <a href="/zahtjevi/">Zahtjevi</a>
+        <a href="/incidenti/">Incidenti</a>
+    {% endif %}
+
+{% endfor %}
+
+    <a href="/logout/">Odjava</a>
+</div>
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
 
 </body>
 </html>

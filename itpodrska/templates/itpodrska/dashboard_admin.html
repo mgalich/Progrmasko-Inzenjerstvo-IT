@@ -1,0 +1,23 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Dashboard administratora</h1>
+<p>Upravljanje IT opremom, korisnicima i administracijom sustava.</p>
+
+<div class="quick-grid">
+    <a class="quick-card" href="/oprema/">
+        <h3>IT oprema</h3>
+        <p>Pregled informatičke opreme.</p>
+    </a>
+
+    <a class="quick-card" href="/nova-oprema/">
+        <h3>Nova oprema</h3>
+        <p>Unos nove informatičke opreme.</p>
+    </a>
+
+    <a class="quick-card" href="/admin/">
+        <h3>Admin panel</h3>
+        <p>Administracija svih podataka sustava.</p>
+    </a>
+</div>
+{% endblock %}

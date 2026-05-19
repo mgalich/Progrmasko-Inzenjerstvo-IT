@@ -5,6 +5,8 @@
 
 <div class="card">
     <h2>Pregled IT opreme</h2>
+    <a class="btn" href="/nova-oprema/">+ Nova oprema</a>
+    <br><br>
 
     <table>
         <tr>
@@ -14,6 +16,9 @@
             <th>Vrsta</th>
             <th>Proizvođač</th>
             <th>Lokacija</th>
+            <th>Status</th>
+            <th>Datum kupnje</th>
+            <th>Jamstvo</th>
         </tr>
 
         {% for oprema in oprema %}
@@ -24,6 +29,13 @@
             <td>{{ oprema.vrsta_opreme }}</td>
             <td>{{ oprema.proizvodjac }}</td>
             <td>{{ oprema.lokacija }}</td>
+            <td>{{ oprema.id_status_opreme.naziv_statusa_opreme }}</td>
+            <td>{{ oprema.datum_kupnje }}</td>
+            <td>{{ oprema.jamstvo_mjeseci }} mjeseci</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="9">Nema unesene IT opreme.</td>
         </tr>
         {% endfor %}
     </table>

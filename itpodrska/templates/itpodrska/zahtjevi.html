@@ -6,12 +6,18 @@
 <div class="card">
     <h2>Pregled korisničkih zahtjeva</h2>
 
+    <a class="btn" href="/novi-zahtjev/">+ Novi zahtjev</a>
+    <br><br>
+
     <table>
         <tr>
             <th>ID</th>
             <th>Naslov</th>
             <th>Opis</th>
             <th>Datum prijave</th>
+            <th>Status</th>
+            <th>Prioritet</th>
+            <th>IT djelatnik</th>
         </tr>
 
         {% for zahtjev in zahtjevi %}
@@ -20,6 +26,19 @@
             <td>{{ zahtjev.naslov_zahtjeva }}</td>
             <td>{{ zahtjev.opis_zahtjeva }}</td>
             <td>{{ zahtjev.datum_prijave }}</td>
+            <td>{{ zahtjev.id_status_zahtjeva.naziv_statusa_zahtjeva }}</td>
+            <td>{{ zahtjev.id_prioritet_zahtjeva.naziv_prioriteta }}</td>
+            <td>
+                {% if zahtjev.id_it_zaposlenika %}
+                    {{ zahtjev.id_it_zaposlenika.ime }} {{ zahtjev.id_it_zaposlenika.prezime }}
+                {% else %}
+                    Nije dodijeljen
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">Nema unesenih zahtjeva.</td>
         </tr>
         {% endfor %}
     </table>

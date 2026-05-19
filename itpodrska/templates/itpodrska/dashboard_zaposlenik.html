@@ -1,0 +1,28 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Dashboard zaposlenika</h1>
+<p>Pregled funkcionalnosti za prijavu i praćenje vlastitih prijava.</p>
+
+<div class="quick-grid">
+    <a class="quick-card" href="/novi-zahtjev/">
+        <h3>Prijavi zahtjev</h3>
+        <p>Unos novog korisničkog zahtjeva.</p>
+    </a>
+
+    <a class="quick-card" href="/novi-incident/">
+        <h3>Prijavi incident</h3>
+        <p>Prijava tehničkog problema ili kvara.</p>
+    </a>
+
+    <a class="quick-card" href="/zahtjevi/">
+        <h3>Moji zahtjevi</h3>
+        <p>Pregled prijavljenih zahtjeva.</p>
+    </a>
+
+    <a class="quick-card" href="/incidenti/">
+        <h3>Moji incidenti</h3>
+        <p>Pregled prijavljenih incidenata.</p>
+    </a>
+</div>
+{% endblock %}

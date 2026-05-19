@@ -1,0 +1,30 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<h1>Novi članak</h1>
+
+<div class="card">
+    <h2>Unos članka u bazu znanja</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Naslov članka</label>
+        <input type="text" name="naslov_clanka" required>
+
+        <label>Opis problema</label>
+        <textarea name="opis_problema" required></textarea>
+
+        <label>Opis rješenja</label>
+        <textarea name="opis_rjesenja" required></textarea>
+
+        <label>Ključne riječi</label>
+        <input type="text" name="kljucne_rijeci">
+
+        <label>Datum unosa</label>
+        <input type="date" name="datum_unosa" required>
+
+        <button class="btn" type="submit">Spremi članak</button>
+    </form>
+</div>
+{% endblock %}

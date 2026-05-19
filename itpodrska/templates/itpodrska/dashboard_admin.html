@@ -1,23 +1,59 @@
 {% extends 'itpodrska/base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>Dashboard administratora</h1>
-<p>Upravljanje IT opremom, korisnicima i administracijom sustava.</p>
+<h1>Dobrodošli, {{ user.first_name }} {{ user.last_name }}</h1>
+<p>Nadzorna ploča za administraciju sustava</p>
+
+<div class="stats">
+    <div class="stat-card">
+        <p>Zahtjevi</p>
+        <h2>{{ broj_zahtjeva }}</h2>
+    </div>
+
+    <div class="stat-card">
+        <p>Incidenti</p>
+        <h2>{{ broj_incidenata }}</h2>
+    </div>
+
+    <div class="stat-card">
+        <p>IT oprema</p>
+        <h2>{{ broj_opreme }}</h2>
+    </div>
+
+    <div class="stat-card">
+        <p>Članci baze znanja</p>
+        <h2>{{ broj_clanaka }}</h2>
+    </div>
+</div>
+
+<h2>Brzi pristup</h2>
 
 <div class="quick-grid">
+
     <a class="quick-card" href="/oprema/">
+        <img src="{% static 'itpodrska/images/oprema.png' %}" width="45">
         <h3>IT oprema</h3>
-        <p>Pregled informatičke opreme.</p>
+        <p>Pregled i upravljanje opremom.</p>
     </a>
 
-    <a class="quick-card" href="/nova-oprema/">
-        <h3>Nova oprema</h3>
-        <p>Unos nove informatičke opreme.</p>
+    <a class="quick-card" href="/baza-znanja/">
+        <img src="{% static 'itpodrska/images/baza_znanja.png' %}" width="45">
+        <h3>Baza znanja</h3>
+        <p>Pregled poznatih rješenja.</p>
+    </a>
+
+    <a class="quick-card" href="/dodijeli-zahtjeve/">
+        <img src="{% static 'itpodrska/images/korisnici.png' %}" width="45">
+        <h3>Dodijeli zahtjeve</h3>
+        <p>Dodjela zahtjeva IT djelatnicima.</p>
     </a>
 
     <a class="quick-card" href="/admin/">
+        <img src="{% static 'itpodrska/images/admin_panel.png' %}" width="45">
         <h3>Admin panel</h3>
-        <p>Administracija svih podataka sustava.</p>
+        <p>Upravljanje korisnicima i grupama.</p>
     </a>
+
 </div>
 {% endblock %}

@@ -1,23 +1,48 @@
 {% extends 'itpodrska/base.html' %}
+{% load static %}
 
 {% block content %}
-<h1>Dashboard voditelja IT odjela</h1>
-<p>Pregled izvještaja i KPI pokazatelja rada IT podrške.</p>
+
+<h1>Dobrodošli, {{ user.first_name }} {{ user.last_name }}</h1>
+<p>Nadzorna ploča voditelja IT odjela</p>
+
+<div class="stats">
+    <div class="stat-card">
+        <p>Zahtjevi</p>
+        <h2>{{ broj_zahtjeva }}</h2>
+    </div>
+
+    <div class="stat-card">
+        <p>Incidenti</p>
+        <h2>{{ broj_incidenata }}</h2>
+    </div>
+
+    <div class="stat-card">
+        <p>Izvještaji</p>
+        <h2>{{ broj_izvjestaja }}</h2>
+    </div>
+</div>
+
+<h2>Brzi pristup</h2>
 
 <div class="quick-grid">
     <a class="quick-card" href="/izvjestaji/">
+        <img src="{% static 'itpodrska/images/admin_panel.png' %}" width="45">
         <h3>Izvještaji</h3>
-        <p>Pregled izvještaja i osnovnih pokazatelja.</p>
+        <p>Pregled KPI pokazatelja.</p>
     </a>
 
     <a class="quick-card" href="/zahtjevi/">
+        <img src="{% static 'itpodrska/images/korisnici.png' %}" width="45">
         <h3>Zahtjevi</h3>
         <p>Pregled korisničkih zahtjeva.</p>
     </a>
 
     <a class="quick-card" href="/incidenti/">
+        <img src="{% static 'itpodrska/images/baza_znanja.png' %}" width="45">
         <h3>Incidenti</h3>
         <p>Pregled prijavljenih incidenata.</p>
     </a>
 </div>
+
 {% endblock %}

@@ -8,18 +8,37 @@ def korisnik_u_grupi(user, naziv_grupe):
 @login_required
 def pocetna(request):
     if request.user.groups.filter(name='Zaposlenik').exists():
-        return render(request, 'itpodrska/dashboard_zaposlenik.html')
+        return render(request, 'itpodrska/dashboard_zaposlenik.html', {
+            'broj_zahtjeva': Zahtjev.objects.count(),
+            'broj_incidenata': Incident.objects.count(),
+            })
 
     if request.user.groups.filter(name='IT djelatnik').exists():
-        return render(request, 'itpodrska/dashboard_it.html')
+        return render(request, 'itpodrska/dashboard_it.html', {
+        'broj_zahtjeva': Zahtjev.objects.count(),
+        'broj_incidenata': Incident.objects.count(),
+        'broj_clanaka': ClanakBazeZnanja.objects.count(),
+    })
 
     if request.user.groups.filter(name='Voditelj IT odjela').exists():
-        return render(request, 'itpodrska/dashboard_voditelj.html')
+        return render(request, 'itpodrska/dashboard_voditelj.html', {
+        'broj_zahtjeva': Zahtjev.objects.count(),
+        'broj_incidenata': Incident.objects.count(),
+        'broj_izvjestaja': Izvjestaj.objects.count(),
+    })
 
     if request.user.groups.filter(name='Administrator').exists():
-        return render(request, 'itpodrska/dashboard_admin.html')
+        return render(request, 'itpodrska/dashboard_admin.html', {
+        'broj_zahtjeva': Zahtjev.objects.count(),
+        'broj_incidenata': Incident.objects.count(),
+        'broj_opreme': ItOprema.objects.count(),
+        'broj_clanaka': ClanakBazeZnanja.objects.count(),
+    })
 
-    return render(request, 'itpodrska/dashboard.html')
+    return render(request, 'itpodrska/dashboard_zaposlenik.html', {
+    'broj_zahtjeva': Zahtjev.objects.count(),
+    'broj_incidenata': Incident.objects.count(),
+})
 
 from .models import Zahtjev, Incident, ItOprema, ClanakBazeZnanja, Izvjestaj, ItZaposlenik
 

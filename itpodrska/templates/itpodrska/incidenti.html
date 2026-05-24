@@ -27,8 +27,20 @@
         <td>{{ incident.opis_incidenta }}</td>
         <td>{{ incident.lokacija }}</td>
         <td>{{ incident.datum_prijave }}</td>
-        <td>{{ incident.id_status_incidenta.naziv_statusa_incidenta }}</td>
-        <td>{{ incident.id_prioritet_incidenta.naziv_prioriteta }}</td>
+        <td>
+            {% if incident.id_status_incidenta %}
+                {{ incident.id_status_incidenta.naziv_statusa_incidenta }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            {% if incident.id_prioritet_incidenta %}
+                {{ incident.id_prioritet_incidenta.naziv_prioriteta }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
         <td>
             {% if incident.id_it_zaposlenika %}
                 {{ incident.id_it_zaposlenika.ime }} {{ incident.id_it_zaposlenika.prezime }}

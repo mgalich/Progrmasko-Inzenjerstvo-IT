@@ -13,7 +13,7 @@
         <tr>
             <th>ID</th>
             <th>Naslov</th>
-            <th>Opis</th>
+            <th>Tip</th>
             <th>Datum prijave</th>
             <th>Status</th>
             <th>Prioritet</th>
@@ -24,10 +24,28 @@
         <tr>
             <td>{{ zahtjev.id_zahtjeva }}</td>
             <td>{{ zahtjev.naslov_zahtjeva }}</td>
-            <td>{{ zahtjev.opis_zahtjeva }}</td>
+            <td>
+                {% if zahtjev.id_tip_zahtjeva %}
+                    {{ zahtjev.id_tip_zahtjeva.naziv_tipa_zahtjeva }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
             <td>{{ zahtjev.datum_prijave }}</td>
-            <td>{{ zahtjev.id_status_zahtjeva.naziv_statusa_zahtjeva }}</td>
-            <td>{{ zahtjev.id_prioritet_zahtjeva.naziv_prioriteta }}</td>
+            <td>
+                {% if zahtjev.id_status_zahtjeva %}
+                    {{ zahtjev.id_status_zahtjeva.naziv_statusa_zahtjeva }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>
+                {% if zahtjev.id_prioritet_zahtjeva %}
+                    {{ zahtjev.id_prioritet_zahtjeva.naziv_prioriteta }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
             <td>
                 {% if zahtjev.id_it_zaposlenika %}
                     {{ zahtjev.id_it_zaposlenika.ime }} {{ zahtjev.id_it_zaposlenika.prezime }}

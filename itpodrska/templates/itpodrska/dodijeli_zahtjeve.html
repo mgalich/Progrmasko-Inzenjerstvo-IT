@@ -20,15 +20,26 @@
         <td>REQ-{{ zahtjev.id_zahtjeva }}</td>
         <td>Zahtjev</td>
         <td>{{ zahtjev.naslov_zahtjeva }}</td>
-        <td>-</td>
         <td>
-            <select>
-                <option>Odaberi IT djelatnika</option>
-                {% for djelatnik in it_djelatnici %}
-                    <option>{{ djelatnik.ime }} {{ djelatnik.prezime }}</option>
-                {% endfor %}
-            </select>
-            <button class="btn" type="button">Dodijeli</button>
+            {% if zahtjev.id_prioritet_zahtjeva %}
+                {{ zahtjev.id_prioritet_zahtjeva.naziv_prioriteta }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="vrsta" value="zahtjev">
+                <input type="hidden" name="id_prijave" value="{{ zahtjev.id_zahtjeva }}">
+                <select name="id_it_zaposlenika" required>
+                    <option value="">Odaberi IT djelatnika</option>
+                    {% for djelatnik in it_djelatnici %}
+                        <option value="{{ djelatnik.id_it_zaposlenika }}">{{ djelatnik.ime }} {{ djelatnik.prezime }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn" type="submit">Dodijeli</button>
+            </form>
         </td>
     </tr>
     {% endfor %}
@@ -38,18 +49,35 @@
         <td>INC-{{ incident.id_incidenta }}</td>
         <td>Incident</td>
         <td>{{ incident.naziv_incidenta }}</td>
-        <td>-</td>
         <td>
-            <select>
-                <option>Odaberi IT djelatnika</option>
-                {% for djelatnik in it_djelatnici %}
-                    <option>{{ djelatnik.ime }} {{ djelatnik.prezime }}</option>
-                {% endfor %}
-            </select>
-            <button class="btn" type="button">Dodijeli</button>
+            {% if incident.id_prioritet_incidenta %}
+                {{ incident.id_prioritet_incidenta.naziv_prioriteta }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="vrsta" value="incident">
+                <input type="hidden" name="id_prijave" value="{{ incident.id_incidenta }}">
+                <select name="id_it_zaposlenika" required>
+                    <option value="">Odaberi IT djelatnika</option>
+                    {% for djelatnik in it_djelatnici %}
+                        <option value="{{ djelatnik.id_it_zaposlenika }}">{{ djelatnik.ime }} {{ djelatnik.prezime }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn" type="submit">Dodijeli</button>
+            </form>
         </td>
     </tr>
     {% endfor %}
+
+    {% if not zahtjevi and not incidenti %}
+    <tr>
+        <td colspan="5">Nema nedodijeljenih zahtjeva ili incidenata.</td>
+    </tr>
+    {% endif %}
 </table>
 </div>
 

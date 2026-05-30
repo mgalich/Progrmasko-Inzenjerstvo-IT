@@ -15,8 +15,24 @@
         <label>Opis zahtjeva</label>
         <textarea name="opis_zahtjeva" required></textarea>
 
+        <label>Tip zahtjeva</label>
+        <select name="id_tip_zahtjeva" required>
+            <option value="">Odaberi tip zahtjeva</option>
+            {% for tip in tipovi %}
+                <option value="{{ tip.id_tip_zahtjeva }}">{{ tip.naziv_tipa_zahtjeva }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Prioritet</label>
+        <select name="id_prioritet_zahtjeva" required>
+            <option value="">Odaberi prioritet</option>
+            {% for prioritet in prioriteti %}
+                <option value="{{ prioritet.id_prioritet_zahtjeva }}">{{ prioritet.naziv_prioriteta }}</option>
+            {% endfor %}
+        </select>
+
         <label>Datum prijave</label>
-        <input type="date" name="datum_prijave" required>
+        <input type="date" name="datum_prijave" value="{{ danas|date:'Y-m-d' }}" required>
 
         <br><br>
         <button class="btn" type="submit">Spremi zahtjev</button>

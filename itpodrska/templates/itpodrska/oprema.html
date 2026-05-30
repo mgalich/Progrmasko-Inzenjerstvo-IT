@@ -29,9 +29,21 @@
             <td>{{ oprema.vrsta_opreme }}</td>
             <td>{{ oprema.proizvodjac }}</td>
             <td>{{ oprema.lokacija }}</td>
-            <td>{{ oprema.id_status_opreme.naziv_statusa_opreme }}</td>
-            <td>{{ oprema.datum_kupnje }}</td>
-            <td>{{ oprema.jamstvo_mjeseci }} mjeseci</td>
+            <td>
+                {% if oprema.id_status_opreme %}
+                    {{ oprema.id_status_opreme.naziv_statusa_opreme }}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>{{ oprema.datum_kupnje|default:'-' }}</td>
+            <td>
+                {% if oprema.jamstvo_mjeseci %}
+                    {{ oprema.jamstvo_mjeseci }} mjeseci
+                {% else %}
+                    -
+                {% endif %}
+            </td>
         </tr>
         {% empty %}
         <tr>

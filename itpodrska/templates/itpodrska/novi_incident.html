@@ -15,8 +15,16 @@
         <label>Opis incidenta</label>
         <textarea name="opis_incidenta" required></textarea>
 
+        <label>Prioritet</label>
+        <select name="id_prioritet_incidenta" required>
+            <option value="">Odaberi prioritet</option>
+            {% for prioritet in prioriteti %}
+                <option value="{{ prioritet.id_prioritet_incidenta }}">{{ prioritet.naziv_prioriteta }}</option>
+            {% endfor %}
+        </select>
+
         <label>Datum prijave</label>
-        <input type="date" name="datum_prijave" required>
+        <input type="date" name="datum_prijave" value="{{ danas|date:'Y-m-d' }}" required>
 
         <label>Lokacija</label>
         <input type="text" name="lokacija">

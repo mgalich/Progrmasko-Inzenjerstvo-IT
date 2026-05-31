@@ -64,6 +64,30 @@
         button:hover {
             background: #1e4268;
         }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            text-align: center;
+            font-weight: bold;
+            animation: floatIn 0.4s ease-out;
+        }
+
+@keyframes floatIn {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
     </style>
 </head>
 <body>
@@ -71,6 +95,12 @@
     <div class="login-card">
         <h1>ITFlow</h1>
         <h2>Prijava u sustav</h2>
+        
+        {% if form.errors %}
+    <div class="error-message">
+        Korisničko ime ili lozinka nisu ispravni.
+    </div>
+{% endif %}
 
         <form method="post">
             {% csrf_token %}

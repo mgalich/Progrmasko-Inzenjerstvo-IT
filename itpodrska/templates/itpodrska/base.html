@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="hr">
 <head>
@@ -143,10 +144,73 @@
             label{
                 font-weight: bold;
             }
+
+            .help-button {
+                position: fixed;
+                left: 22px;
+                bottom: 22px;
+                width: 46px;
+                height: 46px;
+                background: #ffffff;
+                color: #0f2742;
+                border-radius: 50%;
+                text-decoration: none;
+                font-size: 26px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+                z-index: 999;
+            }
+            .help-button:hover {
+                background: #e0ecff;
+                color: #0f2742;
+            }
+
+            .top-user-bar {
+                position: fixed;
+                top: 18px;
+                right: 28px;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                z-index: 1000;
+            }
+            .logged-user-name {
+                color: #0f2742;
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+.logout-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.logout-icon img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.logout-icon:hover {
+    color: #2563eb
+}
     </style>
 </head>
 <body>
+<div class="top-user-bar">
+    <span class="logged-user-name">
+        {{ user.get_full_name|default:user.username }}
+    </span>
 
+    <a href="/logout/" class="logout-icon" title="Odjava">
+    <img src="{% static 'itpodrska/images/logout.png' %}" alt="Odjava">
+</a>
+</div>
     <div class="sidebar">
     <h2>ITFlow</h2>
 
@@ -185,13 +249,19 @@
 
 {% endfor %}
 
-    <a href="/logout/">Odjava</a>
 </div>
 
 <div class="content">
     {% block content %}
     {% endblock %}
 </div>
+
+<a href="{% static 'itpodrska/Sustav_pomoci.pdf' %}" 
+   class="help-button" 
+   target="_blank" 
+   title="Korisničke upute">
+    ?
+</a>
 
 </body>
 </html>

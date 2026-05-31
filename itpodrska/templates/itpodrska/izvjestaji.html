@@ -1,10 +1,116 @@
 {% extends 'itpodrska/base.html' %}
 
 {% block content %}
-<h1>Izvještaji</h1>
+<div class="page-header">
+    <div>
+        <h1>Izvještaji i KPI pokazatelji</h1>
+    </div>
+
+    <a class="btn" href="/generiraj-izvjestaj/">Generiraj izvještaj</a>
+</div>
+
+<div class="kpi-grid">
+    <div class="kpi-card">
+        <div class="kpi-icon">✓</div>
+        <h2>{{ ukupno_zahtjeva }}</h2>
+        <p>Zaprimljeni zahtjevi</p>
+    </div>
+
+    <div class="kpi-card">
+        <div class="kpi-icon">●</div>
+        <h2>{{ ukupno_rijesenih }}</h2>
+        <p>Riješene prijave</p>
+    </div>
+
+    <div class="kpi-card">
+        <div class="kpi-icon">!</div>
+        <h2>{{ ukupno_incidenata }}</h2>
+        <p>Broj incidenata</p>
+    </div>
+
+    <div class="kpi-card">
+        <div class="kpi-icon">%</div>
+        <h2>{{ stopa_rjesavanja }}%</h2>
+        <p>Stopa rješavanja</p>
+    </div>
+</div>
+
+<div class="report-layout">
+    <div class="card">
+        <h2>Zaprimljeni i riješeni zahtjevi</h2>
+
+        <div class="simple-chart">
+            <div class="chart-row">
+                <span>Zahtjevi</span>
+                <div class="bar-wrap">
+                    <div class="bar" style="width: 85%;"></div>
+                </div>
+                <strong>{{ ukupno_zahtjeva }}</strong>
+            </div>
+
+            <div class="chart-row">
+                <span>Incidenti</span>
+                <div class="bar-wrap">
+                    <div class="bar" style="width: 55%;"></div>
+                </div>
+                <strong>{{ ukupno_incidenata }}</strong>
+            </div>
+
+            <div class="chart-row">
+                <span>Riješeno</span>
+                <div class="bar-wrap">
+                    <div class="bar" style="width: 70%;"></div>
+                </div>
+                <strong>{{ ukupno_rijesenih }}</strong>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Opterećenje IT djelatnika</h2>
+
+        {% for djelatnik in opterecenje_it_djelatnika %}
+        <div class="workload-row">
+            <span>{{ djelatnik.ime }} {{ djelatnik.prezime }}</span>
+            <div class="bar-wrap">
+                <div class="bar" style="width: 65%;"></div>
+            </div>
+            <strong>{{ djelatnik.ukupno }}</strong>
+        </div>
+        {% empty %}
+        <p>Nema evidentiranih IT djelatnika.</p>
+        {% endfor %}
+    </div>
+
+    <div class="card wide-card">
+        <h2>Detaljna statistika</h2>
+
+        <div class="details-grid">
+            <div>
+                <p>Stopa rješavanja</p>
+                <h3>{{ stopa_rjesavanja }}%</h3>
+            </div>
+
+            <div>
+                <p>Otvorene prijave</p>
+                <h3>{{ otvorene_prijave }}</h3>
+            </div>
+
+            <div>
+                <p>Riješeni zahtjevi</p>
+                <h3>{{ rijeseni_zahtjevi }}</h3>
+            </div>
+
+            <div>
+                <p>Riješeni incidenti</p>
+                <h3>{{ rijeseni_incidenti }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="card">
-    <h2>Pregled KPI izvještaja</h2>
+    <h2>Pregled spremljenih izvještaja</h2>
 
     <table>
         <tr>
@@ -27,7 +133,115 @@
             <td>{{ izvjestaj.broj_incidenata }}</td>
             <td>{{ izvjestaj.broj_rijesenih_prijava }}</td>
         </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">Nema spremljenih izvještaja.</td>
+        </tr>
         {% endfor %}
     </table>
 </div>
+
+<style>
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(180px, 1fr));
+        gap: 22px;
+        margin-bottom: 28px;
+    }
+
+    .kpi-card {
+        background: white;
+        border-radius: 14px;
+        padding: 22px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        border-left: 5px solid #0f2742;
+    }
+
+    .kpi-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: #e0ecff;
+        color: #0f2742;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-bottom: 14px;
+    }
+
+    .kpi-card h2 {
+        font-size: 38px;
+        margin: 0;
+        color: #0f2742;
+    }
+
+    .kpi-card p {
+        margin-bottom: 0;
+        color: #64748b;
+    }
+
+    .report-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr;
+        gap: 22px;
+        align-items: start;
+    }
+
+    .wide-card {
+        grid-column: span 1;
+    }
+
+    .simple-chart,
+    .workload-row {
+        margin-top: 18px;
+    }
+
+    .chart-row,
+    .workload-row {
+        display: grid;
+        grid-template-columns: 90px 1fr 40px;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 18px;
+    }
+
+    .bar-wrap {
+        height: 14px;
+        background: #e5e7eb;
+        border-radius: 999px;
+        overflow: hidden;
+    }
+
+    .bar {
+        height: 100%;
+        background: #0f2742;
+        border-radius: 999px;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        text-align: center;
+    }
+
+    .details-grid p {
+        color: #64748b;
+        margin-bottom: 6px;
+    }
+
+    .details-grid h3 {
+        color: #0f2742;
+        font-size: 26px;
+        margin: 0;
+    }
+</style>
 {% endblock %}

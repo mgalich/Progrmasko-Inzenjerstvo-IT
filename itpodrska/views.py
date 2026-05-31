@@ -138,8 +138,63 @@ def baza_znanja(request):
 @login_required
 def izvjestaji(request):
     svi_izvjestaji = Izvjestaj.objects.all()
-    return render(request, 'itpodrska/izvjestaji.html', {'izvjestaji': svi_izvjestaji})
 
+    ukupno_zahtjeva = Zahtjev.objects.count()
+    ukupno_incidenata = Incident.objects.count()
+    ukupno_prijava = ukupno_zahtjeva + ukupno_incidenata
+
+    rijeseni_zahtjevi = Zahtjev.objects.filter(
+        id_status_zahtjeva__naziv_statusa_zahtjeva__icontains="rije"
+    ).count()
+
+    rijeseni_incidenti = Incident.objects.filter(
+        id_status_incidenta__naziv_statusa_incidenta__icontains="rije"
+    ).count()
+
+    ukupno_rijesenih = rijeseni_zahtjevi + rijeseni_incidenti
+    otvorene_prijave = ukupno_prijava - ukupno_rijesenih
+
+    if ukupno_prijava > 0:
+        stopa_rjesavanja = round((ukupno_rijesenih / ukupno_prijava) * 100)
+    else:
+        stopa_rjesavanja = 0
+
+    opterecenje_it_djelatnika = []
+
+    for djelatnik in ItZaposlenik.objects.all():
+        broj_zahtjeva = Zahtjev.objects.filter(id_it_zaposlenika=djelatnik).count()
+        broj_incidenata = Incident.objects.filter(id_it_zaposlenika=djelatnik).count()
+        ukupno = broj_zahtjeva + broj_incidenata
+
+        opterecenje_it_djelatnika.append({
+            "ime": djelatnik.ime,
+            "prezime": djelatnik.prezime,
+            "zahtjevi": broj_zahtjeva,
+            "incidenti": broj_incidenata,
+            "ukupno": ukupno,
+        })
+
+    return render(request, 'itpodrska/izvjestaji.html', {
+        'izvjestaji': svi_izvjestaji,
+        'ukupno_zahtjeva': ukupno_zahtjeva,
+        'ukupno_incidenata': ukupno_incidenata,
+        'ukupno_prijava': ukupno_prijava,
+        'rijeseni_zahtjevi': rijeseni_zahtjevi,
+        'rijeseni_incidenti': rijeseni_incidenti,
+        'ukupno_rijesenih': ukupno_rijesenih,
+        'otvorene_prijave': otvorene_prijave,
+        'stopa_rjesavanja': stopa_rjesavanja,
+        'opterecenje_it_djelatnika': opterecenje_it_djelatnika,
+    })
+
+
+@login_required
+def generiraj_izvjestaj(request):
+    it_djelatnici = ItZaposlenik.objects.all()
+
+    return render(request, 'itpodrska/generiraj_izvjestaj.html', {
+        'it_djelatnici': it_djelatnici,
+    })
 
 @login_required
 def novi_zahtjev(request):

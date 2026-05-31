@@ -1,0 +1,108 @@
+{% extends 'itpodrska/base.html' %}
+
+{% block content %}
+<a href="/izvjestaji/" class="back-link">← Natrag</a>
+
+<h1>Generiranje izvještaja</h1>
+
+<div class="generate-layout">
+    <div class="card">
+        <h2>Parametri izvještaja</h2>
+
+        <form method="get" action="{% url 'izvjestaji' %}">
+            <label>Vrsta izvještaja *</label>
+            <select>
+                <option>Pregled svih zahtjeva i incidenata</option>
+                <option>Izvještaj o učinkovitosti IT djelatnika</option>
+                <option>Izvještaj po kategorijama problema</option>
+                <option>Izvještaj o vremenu rješavanja</option>
+                <option>Mjesečni sažetak aktivnosti</option>
+                <option>Status IT imovine</option>
+            </select>
+
+            <div class="date-grid">
+                <div>
+                    <label>Razdoblje od *</label>
+                    <input type="date">
+                </div>
+
+                <div>
+                    <label>Razdoblje do *</label>
+                    <input type="date">
+                </div>
+            </div>
+
+            <label>Odabir IT djelatnika</label>
+            <select>
+                <option>Svi IT djelatnici</option>
+                {% for djelatnik in it_djelatnici %}
+                    <option>{{ djelatnik.ime }} {{ djelatnik.prezime }}</option>
+                {% endfor %}
+            </select>
+
+            <button class="btn" type="submit">Generiraj izvještaj</button>
+            <button class="btn secondary-btn" type="button" onclick="window.print()">Izvezi PDF</button>
+        </form>
+    </div>
+
+    <div>
+        <div class="card">
+            <h2>Dostupni izvještaji</h2>
+            <ul class="report-list">
+                <li>Pregled svih zahtjeva i incidenata</li>
+                <li>Izvještaj o učinkovitosti IT djelatnika</li>
+                <li>Izvještaj po kategorijama problema</li>
+                <li>Izvještaj o vremenu rješavanja</li>
+                <li>Mjesečni sažetak aktivnosti</li>
+                <li>Status IT imovine</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Napomene</h2>
+            <p>• Izvještaji se prikazuju prema podacima evidentiranima u sustavu.</p>
+            <p>• Podaci se mogu filtrirati prema razdoblju i IT djelatniku.</p>
+            <p>• Izvještaji uključuju tablični pregled i KPI pokazatelje.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #0f2742;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .generate-layout {
+        display: grid;
+        grid-template-columns: 420px 360px;
+        gap: 28px;
+        align-items: start;
+    }
+
+    .date-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .secondary-btn {
+        background: white;
+        color: #0f2742;
+        border: 1px solid #0f2742;
+        margin-left: 10px;
+    }
+
+    .disabled-btn {
+        opacity: 0.8;
+    }
+
+    .report-list {
+        line-height: 2.1;
+        padding-left: 20px;
+    }
+</style>
+{% endblock %}

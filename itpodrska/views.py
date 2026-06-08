@@ -243,27 +243,69 @@ def novi_incident(request):
         'danas': date.today(),
     })
 
+def generiraj_inventarni_broj():
+    najveci_broj = 0
+
+    for oprema in ItOprema.objects.all():
+        if oprema.inventarni_broj:
+            try:
+                broj = int(oprema.inventarni_broj.upper().replace("INV-", ""))
+                if broj > najveci_broj:
+                    najveci_broj = broj
+            except ValueError:
+                pass
+
+    sljedeci_broj = najveci_broj + 1
+
+    return f"INV-{sljedeci_broj:03d}"
 
 @login_required
 def nova_oprema(request):
     if request.method == "POST":
+        obavezna_polja = [
+            "naziv_opreme",
+            "vrsta_opreme",
+            "proizvodjac",
+            "model",
+            "serijski_broj",
+            "lokacija",
+            "datum_kupnje",
+            "jamstvo_mjeseci",
+        ]
+
+        for polje in obavezna_polja:
+            if not request.POST.get(polje, "").strip():
+                return render(request, 'itpodrska/nova_oprema.html', {
+                    "sljedeci_inventarni_broj": generiraj_inventarni_broj(),
+                    "greska": "Potrebno je ispuniti sva polja prije spremanja opreme."
+                })
+
         ItOprema.objects.create(
-            inventarni_broj=request.POST["inventarni_broj"],
-            naziv_opreme=request.POST["naziv_opreme"],
-            vrsta_opreme=request.POST["vrsta_opreme"],
-            proizvodjac=request.POST["proizvodjac"],
-            model=request.POST["model"],
-            serijski_broj=request.POST["serijski_broj"],
-            lokacija=request.POST["lokacija"],
-            datum_kupnje=request.POST["datum_kupnje"] or None,
-            jamstvo_mjeseci=request.POST["jamstvo_mjeseci"] or None,
-            id_status_opreme=_prvi_status(StatusOpreme, "naziv_statusa_opreme", ["Dostupno", "U upotrebi", "Aktivno"]),
+            inventarni_broj=generiraj_inventarni_broj(),
+            naziv_opreme=request.POST["naziv_opreme"].strip(),
+            vrsta_opreme=request.POST["vrsta_opreme"].strip(),
+            proizvodjac=request.POST["proizvodjac"].strip(),
+            model=request.POST["model"].strip(),
+            serijski_broj=request.POST["serijski_broj"].strip(),
+            lokacija=request.POST["lokacija"].strip(),
+            datum_kupnje=request.POST["datum_kupnje"],
+            jamstvo_mjeseci=request.POST["jamstvo_mjeseci"],
+            id_status_opreme=_prvi_status(StatusOpreme, "naziv_statusa_opreme", ["Aktivna", "U upotrebi"])
         )
 
         return redirect('/oprema/')
 
-    return render(request, 'itpodrska/nova_oprema.html')
+    return render(request, 'itpodrska/nova_oprema.html', {
+        "sljedeci_inventarni_broj": generiraj_inventarni_broj()
+    })
 
+@login_required
+def obrisi_opremu(request, id_opreme):
+    if request.method == "POST":
+        oprema = get_object_or_404(ItOprema, id_opreme=id_opreme)
+        oprema.delete()
+
+    return redirect('/oprema/')
 
 @login_required
 def novi_clanak(request):

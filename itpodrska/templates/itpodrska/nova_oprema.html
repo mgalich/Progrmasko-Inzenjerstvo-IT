@@ -6,37 +6,55 @@
 <div class="card">
     <h2>Unos nove opreme</h2>
 
+    {% if greska %}
+        <div class="error-message">
+            {{ greska }}
+        </div>
+    {% endif %}
+
     <form method="post">
         {% csrf_token %}
 
         <label>Inventarni broj</label>
-        <input type="text" name="inventarni_broj" required>
+        <input type="text" name="inventarni_broj" value="{{ sljedeci_inventarni_broj }}" readonly>
 
         <label>Naziv opreme</label>
         <input type="text" name="naziv_opreme" required>
 
         <label>Vrsta opreme</label>
-        <input type="text" name="vrsta_opreme">
+        <input type="text" name="vrsta_opreme" required>
 
         <label>Proizvođač</label>
-        <input type="text" name="proizvodjac">
+        <input type="text" name="proizvodjac" required>
 
         <label>Model</label>
-        <input type="text" name="model">
+        <input type="text" name="model" required>
 
         <label>Serijski broj</label>
-        <input type="text" name="serijski_broj">
+        <input type="text" name="serijski_broj" required>
 
         <label>Lokacija</label>
-        <input type="text" name="lokacija">
+        <input type="text" name="lokacija" required>
 
         <label>Datum kupnje</label>
-        <input type="date" name="datum_kupnje">
+        <input type="date" name="datum_kupnje" required>
 
         <label>Jamstvo u mjesecima</label>
-        <input type="number" name="jamstvo_mjeseci">
+        <input type="number" name="jamstvo_mjeseci" min="0" required>
 
         <button class="btn" type="submit">Spremi opremu</button>
     </form>
 </div>
+
+<style>
+    .error-message {
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fecaca;
+        padding: 12px 14px;
+        border-radius: 8px;
+        margin-bottom: 18px;
+        font-weight: bold;
+    }
+</style>
 {% endblock %}

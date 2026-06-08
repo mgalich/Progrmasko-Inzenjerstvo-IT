@@ -19,6 +19,7 @@
             <th>Status</th>
             <th>Datum kupnje</th>
             <th>Jamstvo</th>
+            <th>Akcija</th>
         </tr>
 
         {% for oprema in oprema %}
@@ -44,12 +45,34 @@
                     -
                 {% endif %}
             </td>
+            <td>
+                <form method="post" action="{% url 'obrisi_opremu' oprema.id_opreme %}" onsubmit="return confirm('Jeste li sigurni da želite obrisati ovu opremu?');">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-btn">Obriši</button>
+                </form>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="9">Nema unesene IT opreme.</td>
+            <td colspan="10">Nema unesene IT opreme.</td>
         </tr>
         {% endfor %}
     </table>
 </div>
+
+<style>
+    .delete-btn {
+        background: #dc2626;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .delete-btn:hover {
+        background: #b91c1c;
+    }
+</style>
 {% endblock %}

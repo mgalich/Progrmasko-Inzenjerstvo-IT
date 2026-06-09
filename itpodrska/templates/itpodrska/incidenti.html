@@ -5,8 +5,12 @@
 
 <div class="card">
     <h2>Pregled incidenata</h2>
-    <a class="btn" href="/novi-incident/">+ Novi incident</a>
-<br><br>
+    {% for group in request.user.groups.all %}
+    {% if group.name == "Zaposlenik" %}
+        <a class="btn" href="/novi-incident/">+ Novi incident</a>
+        <br><br>
+    {% endif %}
+{% endfor %}
 
     <table>
     <tr>

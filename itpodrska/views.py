@@ -132,8 +132,16 @@ def oprema(request):
 @login_required
 def baza_znanja(request):
     clanci = ClanakBazeZnanja.objects.all()
-    return render(request, 'itpodrska/baza_znanja.html', {'clanci': clanci})
 
+    moze_dodati_clanak = (
+        korisnik_u_grupi(request.user, "IT djelatnik")
+        or korisnik_u_grupi(request.user, "Administrator")
+    )
+
+    return render(request, 'itpodrska/baza_znanja.html', {
+        'clanci': clanci,
+        'moze_dodati_clanak': moze_dodati_clanak
+    })
 
 @login_required
 def izvjestaji(request):

@@ -6,8 +6,12 @@
 <div class="card">
     <h2>Pregled korisničkih zahtjeva</h2>
 
-    <a class="btn" href="/novi-zahtjev/">+ Novi zahtjev</a>
-    <br><br>
+    {% for group in request.user.groups.all %}
+    {% if group.name == "Zaposlenik" %}
+        <a class="btn" href="/novi-zahtjev/">+ Novi zahtjev</a>
+        <br><br>
+    {% endif %}
+{% endfor %}
 
     <table>
         <tr>
